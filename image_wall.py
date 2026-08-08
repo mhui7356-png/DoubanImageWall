@@ -90,6 +90,8 @@ for url in urls:
         img_url = item_div.find('a', {'class': 'nbg'}).find('img', recursive=False)['src']
         rating_span = item_div.find('span', {'class': rating_span_regex})
         rating = int(re.match(rating_span_regex, rating_span['class'][0])[1]) if rating_span else 0
+        if args.rating > 0 and rating < args.rating:
+          continue
         items.append(Item(name, img_url, rating))
         if len(items) >= _COLUMN_NUM * _ROW_NUM - len(skip_image_index):
             enough_met = True
